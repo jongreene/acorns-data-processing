@@ -2,7 +2,7 @@
 
 import math
 import numpy as np
-from vehicle import Vehicle
+from acorns-data-processing.submodules.vehicle import Vehicle
 from queue import PriorityQueue
 
 def n_closest(x,n,d=1):
@@ -71,7 +71,7 @@ def wideFilter(vehicle, scale, maze):
 
 		for i in box:
 			for j in i:
-				if abs(j - maze[pos[0]][pos[1]]) / s > thresh_grad:
+				if abs(j - maze[pos[0]][pos[1]]) > thresh_grad:
 					break
 				good += 1
 

@@ -1,31 +1,26 @@
-import sys, os
 import numpy as np
 import matplotlib.pyplot as plt
 import importlib
 importlib.import_module('mpl_toolkits.mplot3d').Axes3D
 
-def mapCSV(csv_file):
-	# make sure the file exists and is correct
-	if not os.path.isfile(csv_file) or '.csv' not in str(csv_file):
-		print('Error: File either does not exist or is not a csv')
-		sys.exit()
+file_name = 'room_scan.csv'
 
-	# generate a numpy array from the csv with type float
-	m1 = np.genfromtxt(csv_file, dtype=float, delimiter=',')
+terrain = np.genfromtxt(file_name, dtype=float, delimiter=',')
 
-	# return the x, y gradients
-	# [gx1, gy1] = np.gradient(m1)
+terrain = np.flip(terrain, axis=0)
 
-	# print("\nGradient in the 'x direction':")
-	# print(gx1)
-	# print("\nGradient in the 'y direction':")
-	# print(gy1)
+x = range(len(terrain))
+y = range(len(terrain[0]))
 
-	# vehicleMetrics = {'maxPitchSlope': 2, 'maxRollSlope': 2}
+figure = plt.figure()
+surface = figure.add_subplot(111, projection='3d')
+X, Y = np.meshgrid(x, y)
+surface.plot_surface(X, Y, terrain)
 
+#plt.show()
 	# constructAstarArray(gx1, gy1, vehicleMetrics)
 
-	return m1
+	#return m1
 
 def constructAstarArray(xGradientArray, yGradientArray, vehicleMetrics):
 	# maybe remove this line, doing this could lead to the vehicle
